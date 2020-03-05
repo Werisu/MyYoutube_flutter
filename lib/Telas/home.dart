@@ -25,8 +25,8 @@ class Home extends StatelessWidget {
           ),
           IconButton(
             icon: Icon(Icons.search),
-            onPressed: (){
-              showSearch(context: context, delegate: DataPesquisa());
+            onPressed: () async{
+              String resultado = await showSearch(context: context, delegate: DataPesquisa());
             },
           )
         ],
