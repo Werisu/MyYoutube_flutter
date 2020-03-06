@@ -1,4 +1,5 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:myyoutube/Telas/favoritos.dart';
 import 'package:myyoutube/Tiles/video_tile.dart';
@@ -30,7 +31,19 @@ class Home extends StatelessWidget {
                 if(snapshot.hasData){
                   return Text("${snapshot.data.length}");
                 }else{
-                  return Container();
+                  return Container(
+                    height: 40,
+                    width: 40,
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      child: FlareActor(
+                        "animation/player.flr",
+                        animation: "trocarCores",
+                      ),
+                    ),
+                  );
                 }
               },
             ),
@@ -70,7 +83,14 @@ class Home extends StatelessWidget {
                     height: 40,
                     width: 40,
                     alignment: Alignment.center,
-                    child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.red),),
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      child: FlareActor(
+                        "animation/player.flr",
+                        animation: "trocarCores",
+                      ),
+                    ),
                   );
                 }else{
                   return Container();

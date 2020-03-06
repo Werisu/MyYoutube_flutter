@@ -1,5 +1,7 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_youtube/flutter_youtube.dart';
+import 'package:myyoutube/api.dart';
 import 'package:myyoutube/bloc/favorite_bloc.dart';
 import 'package:myyoutube/modelo/video_modelo.dart';
 
@@ -26,7 +28,9 @@ class FavoritosTela extends StatelessWidget {
             children: snapshot.data.values.map((v){
               return InkWell(
                 onTap: (){
-
+                  FlutterYoutube.playYoutubeVideoById(
+                      apiKey: API_KEY, videoId: v.id, autoPlay: true
+                  );
                 },
                 onLongPress: (){
                   _bloc.togglerFavoritos(v);

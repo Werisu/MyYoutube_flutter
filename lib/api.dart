@@ -14,8 +14,6 @@ class Api {
 
     _busca = busca;
 
-    print("=*=*=*=*=*=*=*=*=*=*=*=*=*=*=");
-
     http.Response response = await http.get(
         "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$busca&type=video&key=$API_KEY&maxResults=10"
     );
