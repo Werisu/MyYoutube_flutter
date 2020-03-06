@@ -3,17 +3,33 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:myyoutube/modelo/video_modelo.dart';
 
-const API_KEY = "AIzaSyA4DJuPK-XyrNDGiLQh4owxl5riQFzcfro";
+const API_KEY = "AIzaSyCYpv0WcKkKS_ZLPaw454vS2xg8-RDsuns";
 
 class Api {
 
-  busca(String busca) async{
+  String _busca;
+  String _nextToken;
+
+  Future<List<Video>> buscando(String busca) async{
+
+    _busca = busca;
+
+    print("=*=*=*=*=*=*=*=*=*=*=*=*=*=*=");
 
     http.Response response = await http.get(
         "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$busca&type=video&key=$API_KEY&maxResults=10"
     );
 
-    codigo(response);
+    return codigo(response);
+
+  }
+
+  Future<List<Video>> proximaPagina() async{
+    http.Response response = await http.get(
+        "https://www.googleapis.com/youtube/v3/search?part=snippet&q=$_busca&type=video&key=$API_KEY&maxResults=10&pageToken=$_nextToken"
+    );
+
+    return codigo(response);
 
   }
 
@@ -23,6 +39,8 @@ class Api {
     if(response.statusCode == 200){
 
       var decodificando = json.decode(response.body);
+
+      _nextToken = decodificando["nextPageToken"];
 
       /* Transformar em uma lista de objetos vídeo */
 

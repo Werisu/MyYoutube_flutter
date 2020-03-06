@@ -1,9 +1,15 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:myyoutube/Tiles/video_tile.dart';
 import 'package:myyoutube/delegats/data_pesquisa.dart';
+import 'package:myyoutube/bloc/videos_bloc.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+    final _bloc = BlocProvider.of<VideosBloc>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Container(
@@ -27,11 +33,40 @@ class Home extends StatelessWidget {
             icon: Icon(Icons.search),
             onPressed: () async{
               String resultado = await showSearch(context: context, delegate: DataPesquisa());
+              if(resultado != null) _bloc.inBuscar.add(resultado);
             },
           )
         ],
       ),
-      body: Container(),
+      backgroundColor: Colors.black,
+      body: StreamBuilder(
+        stream: _bloc.outVideos,
+        initialData: [],
+        builder: (context, snapshot){
+          if(snapshot.hasData){
+            return ListView.builder(
+              itemBuilder: (context, index){
+                if(index < snapshot.data.length){
+                  return VideoTile(snapshot.data[index]);
+                }else if (index > 1){
+                  _bloc.inBuscar.add(null);
+                  return Container(
+                    height: 40,
+                    width: 40,
+                    alignment: Alignment.center,
+                    child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.red),),
+                  );
+                }else{
+                  return Container();
+                }
+              },
+              itemCount: snapshot.data.length + 1,
+            );
+          }else{
+            return Container();
+          }
+        },
+      ),
     );
   }
 }

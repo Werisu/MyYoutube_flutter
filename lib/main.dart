@@ -1,10 +1,12 @@
+import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
 import 'package:myyoutube/Telas/home.dart';
 import 'package:myyoutube/api.dart';
+import 'package:myyoutube/bloc/videos_bloc.dart';
 
 void main() {
   Api api = Api();
-  api.busca("Enjuru");
+  api.buscando("Enjuru");
 
   runApp(MyApp());
 }
@@ -13,10 +15,13 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'My tube',
-      debugShowCheckedModeBanner: false,
-      home: Home(),
+    return BlocProvider(
+        bloc: VideosBloc(),
+        child: MaterialApp(
+          title: 'FlutterTube',
+          debugShowCheckedModeBanner: false,
+          home: Home(),
+        ),
     );
   }
 }
