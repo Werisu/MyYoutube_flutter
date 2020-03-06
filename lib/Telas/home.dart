@@ -1,8 +1,11 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:myyoutube/Telas/favoritos.dart';
 import 'package:myyoutube/Tiles/video_tile.dart';
+import 'package:myyoutube/bloc/favorite_bloc.dart';
 import 'package:myyoutube/delegats/data_pesquisa.dart';
 import 'package:myyoutube/bloc/videos_bloc.dart';
+import 'package:myyoutube/modelo/video_modelo.dart';
 
 class Home extends StatelessWidget {
   @override
@@ -21,12 +24,25 @@ class Home extends StatelessWidget {
         actions: <Widget>[
           Align(
             alignment: Alignment.center,
-            child: Text("0"),
+            child: StreamBuilder<Map<String, Video>>(
+              stream: BlocProvider.of<FavoriteBloc>(context).outFav,
+              builder: (context, snapshot){
+                if(snapshot.hasData){
+                  return Text("${snapshot.data.length}");
+                }else{
+                  return Container();
+                }
+              },
+            ),
           ),
           IconButton(
             icon: Icon(Icons.star),
             onPressed: (){
-
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => FavoritosTela()
+                )
+              );
             },
           ),
           IconButton(
