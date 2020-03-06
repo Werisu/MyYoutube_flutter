@@ -93,13 +93,37 @@ class Home extends StatelessWidget {
                     ),
                   );
                 }else{
-                  return Container();
+                  return Container(
+                    height: 100,
+                    width: 100,
+                    alignment: Alignment.center,
+                    child: Container(
+                      width: 150,
+                      height: 150,
+                      child: FlareActor(
+                        "animation/player.flr",
+                        animation: "trocarCores",
+                      ),
+                    ),
+                  );
                 }
               },
               itemCount: snapshot.data.length + 1,
             );
           }else{
-            return Container();
+            return Container(
+              height: 40,
+              width: 40,
+              alignment: Alignment.center,
+              child: Container(
+                width: 150,
+                height: 150,
+                child: FlareActor(
+                  "animation/player.flr",
+                  animation: "trocarCores",
+                ),
+              ),
+            );
           }
         },
       ),
