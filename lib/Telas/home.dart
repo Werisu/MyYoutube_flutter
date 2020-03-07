@@ -31,19 +31,7 @@ class Home extends StatelessWidget {
                 if(snapshot.hasData){
                   return Text("${snapshot.data.length}");
                 }else{
-                  return Container(
-                    height: 40,
-                    width: 40,
-                    alignment: Alignment.center,
-                    child: Container(
-                      width: 150,
-                      height: 150,
-                      child: FlareActor(
-                        "animation/player.flr",
-                        animation: "trocarCores",
-                      ),
-                    ),
-                  );
+                  return Container();
                 }
               },
             ),
@@ -63,6 +51,7 @@ class Home extends StatelessWidget {
             onPressed: () async{
               String resultado = await showSearch(context: context, delegate: DataPesquisa());
               if(resultado != null) _bloc.inBuscar.add(resultado);
+              print("====****** ${resultado} ====******");
             },
           )
         ],
@@ -111,19 +100,7 @@ class Home extends StatelessWidget {
               itemCount: snapshot.data.length + 1,
             );
           }else{
-            return Container(
-              height: 40,
-              width: 40,
-              alignment: Alignment.center,
-              child: Container(
-                width: 150,
-                height: 150,
-                child: FlareActor(
-                  "animation/player.flr",
-                  animation: "trocarCores",
-                ),
-              ),
-            );
+            return Container();
           }
         },
       ),

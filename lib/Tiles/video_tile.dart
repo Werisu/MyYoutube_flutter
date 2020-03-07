@@ -64,6 +64,7 @@ class VideoTile extends StatelessWidget {
                   ),
                 ),
                 StreamBuilder<Map<String, Video>>(
+                  initialData: {},
                   stream: favc.outFav,
                   builder: (context, snapshot){
                     if(snapshot.hasData){
@@ -77,19 +78,7 @@ class VideoTile extends StatelessWidget {
                         },
                       );
                     } else{
-                      return Container(
-                        height: 40,
-                        width: 40,
-                        alignment: Alignment.center,
-                        child: Container(
-                          width: 150,
-                          height: 150,
-                          child: FlareActor(
-                            "animation/player.flr",
-                            animation: "trocarCores",
-                          ),
-                        ),
-                      );
+                      return Container();
                     }
                   },
                 )

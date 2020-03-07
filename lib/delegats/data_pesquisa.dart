@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -50,17 +49,7 @@ class DataPesquisa extends SearchDelegate<String> {
         builder: (context, snapshot){
           if(!snapshot.hasData){
             return Container(
-              height: 40,
-              width: 40,
-              alignment: Alignment.center,
-              child: Container(
-                width: 150,
-                height: 150,
-                child: FlareActor(
-                  "animation/player.flr",
-                  animation: "trocarCores",
-                ),
-              ),
+              child: Text("carregando!"),
             );
           }else{
             return ListView.builder(

@@ -9,7 +9,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class FavoriteBloc implements BlocBase{
 
   Map<String, Video> _favoritos = {};
-  final StreamController<Map<String, Video>> _favControle = BehaviorSubject<Map<String, Video>>();
+
+  final _favControle = BehaviorSubject<Map<String, Video>>();
   Stream<Map<String, Video>> get outFav => _favControle.stream;
 
   FavoriteBloc(){
